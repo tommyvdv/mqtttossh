@@ -14,7 +14,7 @@ install:
 freeze:
 	pip freeze > requirements.txt
 test-lint:
-	pylint main.py main.conf src
+	pylint $$(git ls-files '*.py')
 test-unit:
 	pytest
 test: test-lint test-unit
