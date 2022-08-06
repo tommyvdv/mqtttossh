@@ -16,5 +16,5 @@ freeze:
 test-lint:
 	pylint main.py main.conf src
 test-unit:
-	python -m unittest
+	pytest
 test: test-lint test-unit

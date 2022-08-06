@@ -15,17 +15,16 @@ class MqttUrl():
         return self._url
 
     def get_topic(self):
-        return self._topic
+        return None if '' == self._topic else self._topic
 
     def get_hostname(self):
         return self.get_url().hostname
 
     def get_port(self):
-        return self.get_url().port
+        return 1883 if None is self.get_url().port else self.get_url().port
 
     def get_protocol(self):
-        # pylint: disable=no-member
-        return self.get_url().protocol
+        return self.get_url().scheme
 
     def get_username(self):
         return self.get_url().username
@@ -33,7 +32,12 @@ class MqttUrl():
     def get_password(self):
         return self.get_url().password
 
+def _validate(url):
+    if 2 > len(url.split('://')):
+        raise AssertionError(f"Invalid URL: {url} (expects protocol://(username:password@)?host(:port/topic)?)")
+
 def _parse_url(url):
+    _validate(url)
     url = url.replace("#","[HASHMARK]")
     url = urlparse(url)
     return url
