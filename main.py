@@ -64,18 +64,6 @@ def on_connect_fail(client, userdata, return_code):
 def on_connect(client, userdata, flags, return_code):
     print(f'{return_code} connection established {userdata} {flags} {client}')
 
-def on_birth(client):
-    print(f'publish on birth payload {client}')
-    topic = config.get('topic_out')
-    payload = config.get('payload_birth')
-    client.publish(topic, payload)
-
-def on_last_will(client):
-    print(f'set last will payload {client}')
-    topic = config.get('topic_out')
-    payload = config.get('payload_last_will')
-    client.will_set(topic, payload)
-
 TIMEOUT = 1
 async def do_log():
     print('tick')
@@ -83,8 +71,8 @@ async def do_log():
 
 async def main():
     mqtt = Mqtt(option['--mqtt'])
-    mqtt.set_birth(on_birth)
-    mqtt.set_last_will(on_last_will)
+    mqtt.set_birth(config.get('topic_out'), config.get('payload_birth'))
+    mqtt.set_last_will(config.get('topic_out'), config.get('payload_last_will'))
     mqtt.set_handler(HANDLER_ON_MESSAGE, on_message)
     mqtt.set_handler(HANDLER_ON_DISCONNECT, on_disconnect)
     mqtt.set_handler(HANDLER_ON_CONNECT, on_connect)
