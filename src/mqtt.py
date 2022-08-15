@@ -27,7 +27,7 @@ class Mqtt():
         self._last_msg = None
 
     def publish(self, msg):
-        self._client.publish(msg.topic, msg.payload)
+        self._client.publish(msg.get_topic(), msg.get_payload())
 
     def set_handler(self, handler, function):
         setattr(self._client, handler, function)
@@ -47,7 +47,7 @@ class Mqtt():
     def connect(self):
         msg = self._last_msg
         if msg:
-            self._client.will_set(msg.topic, msg.payload)
+            self._client.will_set(msg.get_topic(), msg.get_payload())
         self._client.connect(host=self._url.get_hostname(), port=self._url.get_port())
         msg = self._birth_msg
         if msg:

@@ -1,0 +1,5 @@
+---
+all:
+  hosts:
+    example.local:
+      mac_address: 00:00:00:00:00:00

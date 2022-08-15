@@ -28,6 +28,7 @@ from src.mqtt import HANDLER_ON_CONNECT_FAIL
 from src.mqtt import HANDLER_ON_DISCONNECT
 from src.mqtt import HANDLER_ON_MESSAGE
 from src.mqtt import Mqtt
+from src.mqtt_message import CommandFactory
 
 log = Log(__name__, logging.DEBUG)
 option = docopt(__doc__, version='mqtttossh version 0.1')
@@ -49,11 +50,16 @@ if opt_debug:
     log.debug(f"opt_mqtt: {opt_mqtt}")
     log.debug(f"config: {config}")
 
+mqtt = Mqtt(option['--mqtt'])
+factory = CommandFactory(project_dir=config.get('ansible_project_dir'), inventory=config.get('ansible_inventory'))
+
 def on_message(client, userdata, message):
     if message.topic in [
         config.get('topic_in'),
     ]:
-        print(f'message {userdata} {client} {message.topic} {message.payload}')
+        log.debug(f'message {userdata} {client} {message.topic} (qos:{message.qos}) (retain:{message.retain}) {message.payload}')
+        command = factory.create(message)
+        command.publish(mqtt, config.get('topic_out'), debug=True)
 
 def on_disconnect(client, userdata, return_code):
     print(f'{return_code} disconnected {userdata} {client}')
@@ -70,7 +76,6 @@ async def do_log():
     await asyncio.sleep(TIMEOUT)
 
 async def main():
-    mqtt = Mqtt(option['--mqtt'])
     mqtt.set_birth(config.get('topic_out'), config.get('payload_birth'))
     mqtt.set_last_will(config.get('topic_out'), config.get('payload_last_will'))
     mqtt.set_handler(HANDLER_ON_MESSAGE, on_message)
