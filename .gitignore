@@ -3,4 +3,5 @@
 __pycache__
 main.conf
 playbook/inventory.yml
+var/ansible/
 var/log/
