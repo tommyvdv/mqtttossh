@@ -1,6 +1,8 @@
-topic_in = 'python/mqtttossh/in'
-topic_out = 'python/mqtttossh/out'
-payload_birth = 1
-payload_last_will = 0
-ansible_project_dir = '/home/user/mqtttossh/playbook'
-ansible_inventory = '/home/user/mqtttossh/playbook/inventory.yml'
+debug = True
+mqtt = 'python/mqtttossh/in'
+mqtt_topic_in = 'python/mqtttossh/in'
+mqtt_topic_out = 'python/mqtttossh/out'
+mqtt_payload_birth = 1
+mqtt_payload_last_will = 0
+ansible_project_dir = '/opt/mqtttossh/playbook'
+ansible_inventory = '/opt/mqtttossh/inventory.yml'

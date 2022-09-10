@@ -8,7 +8,10 @@ version:
 
 run:
 	python main.py \
+		-c 'main.conf' \
 		-q 'mqtt://192.168.1.47:1883/python/mqtttossh/in' \
+		#-i 'python/mqtttossh/in' \
+		#-o 'python/mqtttossh/out' \
 		--debug
 
 log:

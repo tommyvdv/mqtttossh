@@ -47,7 +47,10 @@ class Mqtt():
     def connect(self):
         msg = self._last_msg
         if msg:
-            self._client.will_set(msg.get_topic(), msg.get_payload())
+            try:
+                self._client.will_set(msg.get_topic(), msg.get_payload())
+            except ValueError as exception:
+                raise ValueError(f"Last will message has invalid topic: \"{msg.get_topic()}\"") from exception
         self._client.connect(host=self._url.get_hostname(), port=self._url.get_port())
         msg = self._birth_msg
         if msg:
