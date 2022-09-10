@@ -70,7 +70,7 @@ if opt_debug:
     log.debug(f"opt_mqtt_payload_last_will: {opt_mqtt_payload_last_will}")
     log.debug(f"config: {config}")
 
-mqtt = Mqtt(opt_mqtt)
+mqtt = Mqtt(opt_mqtt, opt_mqtt_topic_in)
 factory = CommandFactory(project_dir=config.get('ansible_project_dir'), inventory=config.get('ansible_inventory'))
 
 def on_message(client, userdata, message):

@@ -41,6 +41,6 @@ def test_with_protocol_host_topic():
     assert 'mqtttossh/in' == url.get_topic()
     assert isinstance(url.get_url(), ParseResult)
 
-def test_with_host():
+def test_without_protocol():
     with pytest.raises(AssertionError):
         MqttUrl('127.0.0.1')
