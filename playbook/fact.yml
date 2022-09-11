@@ -1,0 +1,6 @@
+---
+- hosts: all
+  connection: local
+  tasks:
+    - debug:
+        var: ansible_facts

@@ -1,5 +1,7 @@
 ---
 all:
   hosts:
+    local:
+      ansible_connection: local
     example.local:
       mac_address: 00:00:00:00:00:00
