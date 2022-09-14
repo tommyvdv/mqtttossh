@@ -1,5 +1,5 @@
 #FROM ansible/ubuntu14.04-ansible:latest
-FROM python:3.10
+FROM python:3.7
 RUN mkdir -p \
     /opt/mqtttossh/playbook \
     /usr/src/app
