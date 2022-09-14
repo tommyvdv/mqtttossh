@@ -1,5 +1,5 @@
 debug = True
-mqtt = 'python/mqtttossh/in'
+mqtt = 'mqtt://127.0.0.1:1883'
 mqtt_topic_in = 'python/mqtttossh/in'
 mqtt_topic_out = 'python/mqtttossh/out'
 mqtt_payload_birth = 1
