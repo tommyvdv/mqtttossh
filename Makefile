@@ -18,6 +18,7 @@ log:
 	multitail var/log/*
 
 install:
+	pip install --upgrade pip
 	pip install --no-cache-dir -r requirements.txt
 freeze:
 	pip freeze > requirements.txt
