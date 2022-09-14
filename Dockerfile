@@ -9,7 +9,7 @@ COPY ./playbook/fact.yml /opt/mqtttossh/playbook/fact.yml
 COPY ./playbook/inventory.yml.dist /opt/mqtttossh/inventory.yml
 COPY ./main.conf.dist /opt/mqtttossh/main.conf
 RUN apt-get update && \
-    apt-get install -y ansible && \
+    apt-get install -y ansible rust && \
     rm -rf /var/lib/apt/lists/*
 RUN make install
 ENTRYPOINT ["python", "-u", "main.py"]
